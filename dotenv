@@ -1,3 +1,7 @@
 TUHOST=api2.e-builder.net
 TULOGIN=your@email.com
 TUPASSWORD=yourpassword
+
+MAINTAIN_HOST=cityworksonline
+MAINTAIN_LOGIN=your.login
+MAINTAIN_PASSWORD=yourpassword

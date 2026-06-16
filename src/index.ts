@@ -8,6 +8,7 @@ import { Contact } from './contact'
 import { Document } from './document'
 import { FundingSource } from './funding_source'
 import { Process } from './process'
+import * as maintain from './maintain/index'
 
 import _ from 'lodash'
 import axios from 'axios'
@@ -294,5 +295,6 @@ export {
   contact,
   document,
   funding_source,
-  process
+  process,
+  maintain
 }
