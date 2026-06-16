@@ -209,6 +209,22 @@ describe('trimble-unity package', function () {
       const result = tu.maintain.tu_maintain.configure('cityworksonline')
       expect(result).to.equal(true)
     })
+
+    it('authenticate always uses the Unity Maintain SaaS auth endpoint', async function () {
+      const instance = new tu.maintain.TrimbleUnityMaintain()
+      instance.configure('cityworks.yourorg.com', { path: 'cityworks', version: 23 })
+
+      let servicePathUsed
+      instance.runRequest = function (servicePath) {
+        servicePathUsed = servicePath
+        return Promise.resolve({ Value: { Token: 'test-token' } })
+      }
+
+      const result = await instance.authenticate('user', 'pass')
+      expect(result).to.equal(true)
+      expect(servicePathUsed).to.equal('General/Authentication/CityworksOnlineAuthenticate')
+      expect(instance.getToken()).to.equal('test-token')
+    })
   })
 
   // ─── Maintain service modules (method presence) ────────────────────────────
