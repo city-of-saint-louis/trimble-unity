@@ -159,7 +159,7 @@ tu.maintain.tu_maintain.authenticate('yourlogin', 'yourpassword').then(() => {
 **Unity Maintain SaaS tenant**:
 
 ```js
-tu.maintain.tu_maintain.configure('your-org.maintain.trimble.com', {
+tu.maintain.tu_maintain.configure('maintain.example.com', {
   path: 'cityworks',
   version: 23,
   secure: true
