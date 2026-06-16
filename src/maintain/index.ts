@@ -28,8 +28,7 @@ interface TrimbleUnityMaintainConfig {
  *
  * Unity Maintain uses the Cityworks REST API conventions:
  *  - All requests POST to `/{path}/services/{ServicePath}`
- *  - Authentication via `General/Authentication/Authenticate` (on-premises) or
- *    `General/Authentication/CityworksOnlineAuthenticate` (SaaS/cloud)
+ *  - Authentication via `General/Authentication/CityworksOnlineAuthenticate`
  *  - Token passed in `Authorization: cityworks {token}` header (v23+)
  *
  * Usage:
@@ -212,8 +211,7 @@ class TrimbleUnityMaintain {
    * Authenticate with the Trimble Unity Maintain / Cityworks API.
    * Stores the token internally for use in subsequent requests.
    *
-   * For on-premises Cityworks, provide the server hostname.
-   * For Cityworks Online / Unity Maintain SaaS, use base_url 'cityworksonline'.
+   * Uses Cityworks Online / Unity Maintain SaaS authentication.
    *
    * @param {string} login - User's login name
    * @param {string} password - User's password
@@ -224,10 +222,7 @@ class TrimbleUnityMaintain {
       this.login = login
       this.password = password
 
-      const isOnline = this.base_url === 'cityworksonline'
-      const service_path = isOnline
-        ? 'General/Authentication/CityworksOnlineAuthenticate'
-        : 'General/Authentication/Authenticate'
+      const service_path = 'General/Authentication/CityworksOnlineAuthenticate'
 
       const data = { LoginName: login, Password: password }
 
