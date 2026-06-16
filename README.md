@@ -5,8 +5,6 @@ A JavaScript/TypeScript API wrapper for the **Trimble Unity** SaaS platform, cov
 - **Trimble Unity Construct** (formerly e-Builder) — capital project management
 - **Trimble Unity Maintain** (formerly Cityworks) — asset and work order management
 
-Follows the same patterns and best practices as the [Cityworks npm API wrapper](https://github.com/walker/cityworks).
-
 ---
 
 ## Installation
