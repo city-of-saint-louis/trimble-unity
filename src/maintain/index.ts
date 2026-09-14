@@ -1,10 +1,7 @@
 import { TUError } from '../error'
-import { WorkOrder } from './workorder'
-import { Inspection } from './inspection'
-import { ServiceRequest } from './service_request'
-import { Asset } from './asset'
-import { Employee } from './employee'
-import { Cost } from './cost'
+import * as Enums from './apiDefinitions/enumDefinitions'
+import * as Types from "./apiDefinitions/typeDefinitions";
+import { API } from './apiDefinitions/endpointDefinitions'
 
 import _ from 'lodash'
 import axios from 'axios'
@@ -61,6 +58,10 @@ class TrimbleUnityMaintain {
    * Stores settings for path, secure, and API version
    */
   private settings: TrimbleUnityMaintainSettings
+  /**
+   * Contains all the api calls, sorted by service and group
+   */
+  public API = API;
 
   /**
    * Constructor for a new TrimbleUnityMaintain instance
@@ -76,9 +77,7 @@ class TrimbleUnityMaintain {
       secure: true,
       version: 23
     }
-    if (typeof (base_url) !== 'undefined') {
-      this.configure(base_url, settings)
-    }
+    this.configure(base_url, settings);
   }
 
   /**
@@ -88,7 +87,7 @@ class TrimbleUnityMaintain {
    * @param {object} [settings] - Settings object
    * @return {boolean} Returns true if successful
    */
-  configure(base_url?: string, settings?: TrimbleUnityMaintainConfig) {
+  public configure(base_url?: string, settings?: TrimbleUnityMaintainConfig) {
     if (typeof base_url !== 'undefined') {
       this.base_url = base_url
     } else {
@@ -132,7 +131,7 @@ class TrimbleUnityMaintain {
    * @param {any} [post_data] - The data object to be sent to the API
    * @return {Object} Returns Promise object that represents the JSON object returned from the API
    */
-  runRequest(service_path: string, post_data?: any) {
+  public runRequest(service_path: string, post_data?: any) {
     return new Promise((resolve, reject) => {
       const url = this.buildUrl(service_path)
       const headers: Record<string, string> = {
@@ -217,12 +216,12 @@ class TrimbleUnityMaintain {
    * @param {string} password - User's password
    * @return {Object} Returns Promise that resolves to true on success
    */
-  authenticate(login: string, password: string) {
+  public authenticate(login: string, password: string) {
     return new Promise((resolve, reject) => {
       this.login = login
       this.password = password
 
-      const service_path = 'General/Authentication/CityworksOnlineAuthenticate'
+      const service_path = 'General/Authentication/Authenticate'
 
       const data = { LoginName: login, Password: password }
 
@@ -248,7 +247,7 @@ class TrimbleUnityMaintain {
    *
    * @return {string|undefined} Returns the current token or undefined if not set
    */
-  getToken(): string | undefined {
+  public getToken(): string | undefined {
     return this.Token
   }
 
@@ -258,7 +257,7 @@ class TrimbleUnityMaintain {
    * @param {string} token - The authentication token to set
    * @return {boolean} Returns true
    */
-  setToken(token: string): boolean {
+  public setToken(token: string): boolean {
     this.Token = token
     return true
   }
@@ -268,7 +267,7 @@ class TrimbleUnityMaintain {
    *
    * @return {number} Returns the configured API version number
    */
-  v(): number {
+  public v(): number {
     return this.settings.version
   }
 
@@ -277,27 +276,16 @@ class TrimbleUnityMaintain {
    *
    * @return {string} Returns the configured base URL
    */
-  getBaseUrl(): string {
+  public getBaseUrl(): string {
     return this.base_url
   }
 }
 
 const tu_maintain = new TrimbleUnityMaintain()
 
-const workorder = new WorkOrder(tu_maintain)
-const inspection = new Inspection(tu_maintain)
-const service_request = new ServiceRequest(tu_maintain)
-const asset = new Asset(tu_maintain)
-const employee = new Employee(tu_maintain)
-const cost = new Cost(tu_maintain)
-
 export {
   TrimbleUnityMaintain,
   tu_maintain,
-  workorder,
-  inspection,
-  service_request,
-  asset,
-  employee,
-  cost
+  Types as tuTypes,
+  Enums as tuEnums,
 }
