@@ -141,3 +141,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# openAPI definition files and enum files
+./src/maintain/apiDefinitionBuilder/enumTypeFiles/*.mhtml
+./src/maintain/apiDefinitionBuilder/openApiDocs/*.json
