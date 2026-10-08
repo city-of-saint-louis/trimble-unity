@@ -6,6 +6,12 @@ export const enum Service
 	Ams = "Ams",
 	General = "General",
 }
+export enum CoreResponseMessageType
+{
+	CoreResponseMessageType0 = 0,
+	CoreResponseMessageType1 = 1,
+	CoreResponseMessageType2 = 2,
+}
 export enum AbcCatClass
 {
 	A = 1,

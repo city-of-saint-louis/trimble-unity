@@ -1,6 +1,8 @@
 import * as Types from './apiDefinitions/typeDefinitions'
 import * as Enums from './apiDefinitions/enumDefinitions'
 import { tu_maintain } from './index'
+import * as Responses from './apiDefinitions/responseDefinitions'
+import * as Errors from './apiDefinitions/errorDefinitions'
 
 /**
  * Definition for inputs to endpoints
@@ -12,34 +14,6 @@ interface parameter
     required: boolean;
     description: string;
     value?: Types.anyMaintainType;
-}
-
-interface responseProperty
-{
-    name: string;
-    type: string;
-    description: string;
-    value: Types.anyMaintainType;
-}
-
-class response
-{
-    private htmlCode: number;
-    private htmldescription: string;
-    private mimeType: string;
-    private responseType: string;
-    private responseDescription: string;
-    private properties: {[id:string]: responseProperty};
-
-    public constructor(htmlCode: number, htmldescription: string, mimeType: string, responseType: string, responseDescription: string, properties)
-    {
-        this.htmlCode = htmlCode;
-        this.htmldescription = htmldescription;
-        this.mimeType = mimeType;
-        this.responseType = responseType;
-        this.responseDescription = responseDescription;
-        this.properties = properties;
-    }
 }
 
 class endpoint
@@ -64,7 +38,7 @@ class endpoint
     /**
      * Dictionary of endpoint's possible responses
      */
-    private responses: {[id:string]: response} = {};
+    //private responses: {[id:string]: response} = {};
     
     /**
      * Creates an endpoint object

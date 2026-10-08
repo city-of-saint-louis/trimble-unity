@@ -5,6 +5,11 @@ const TYPESCRIPT_TYPES =
 {
     "number": "number",
     "integer": "number",
+    "Int32": "number",
+    "Int64": "number",
+    "Decimal": "number",
+    "DateTime": "Date",
+    "Double": "number",
     "string": "string",
     "boolean": "boolean",
     "object": "object"//TODO, FIND A BETTER SOLUTION FOR THESE?
@@ -29,10 +34,18 @@ var servicesOutput = "export const enum Service\n{";
 var typesOutput = {};
 var enumsOutput = {};
 var responseOutput = {};
+var errorOutput = {};
+var errorsByGroup = {};
+var warningsByGroup = {};
 
 //Return the type of the input parameter json object
 function checkType(service, group, name, paramName, param)
 {
+    if(param["$ref"] === '#/components/schemas/CoreResponseMessage')
+    {
+        return "any | null";
+    }
+    
     //Handle custom Enums and Types
     var paramType = checkCustomType(service, group, name, paramName, param);
 
@@ -109,6 +122,7 @@ function checkCustomType(service, group, name, paramName, param)
     //Handle custom Enum types
     if(param.description != null && param.description.startsWith("Enum: "))
     {
+        generateCustomEnum(service, group, name, paramName, param.description.substring(6), param);
         return "Enums." + param.description.substring(6);
     }
     else if(param.description != null && param.description.startsWith("Type: "))
@@ -116,9 +130,55 @@ function checkCustomType(service, group, name, paramName, param)
         generateCustomType(service, group, name, paramName, param.description.substring(6), param);
         return "Types." + param.description.substring(6);
     }
+    //Core Respose status
+    else if(paramName === "Status" && param.description.startsWith("Response status:") && param.enum == "[-1, 0, 1, 2, 3]")
+    {
+        console.log("ENUMS CORE RESPONSE STATUS")
+        return "Enums.CoreResponseStatus"
+    }
+    else if(param.allOf != null)
+    {
+        if(param.allOf.length > 1)
+        {
+            throw "param.allof.length > 1 (probably an issue when generating responses)"
+        }
+        return checkType(service, group, name, paramName, param.allOf[0]);
+        //generateCustomType(service, group, name, paramName, param.description.replaceAll(" ", ""), param);
+        //return "Types." + param.description.replaceAll(" ", "");
+    }
+    else if(param.description === "Base message type")
+    {
+        param.description = "Type: BaseMessageType"
+        return checkType(service, group, name, paramName, param);
+    }
     else
     {
         return null;
+    }
+}
+
+//Generate custom enum if the enum is definited in the param
+function generateCustomEnum(service, group, name, paramName, paramType, param)
+{
+    if(enumsOutput[paramType] == null && param.enum != null)
+    {
+        //Generate the type declaration
+        enumsOutput[paramType] = 'export enum ' + paramType + '\n{';
+
+        console.log(param.enum);
+        console.log(typeof(param.enum))
+        if(Array.isArray(param.enum))
+        {
+            for(let i = 0; i < param.enum.length; i ++)
+            {
+                enumsOutput[paramType] += '\n\t' + paramType + i + ' = ' + param.enum[i] + ',';
+            }
+            enumsOutput[paramType] += '\n}'
+        }
+        else if(param.enum.includes('['))
+        {
+            throw "Need to implement object enums"
+        }
     }
 }
 
@@ -164,6 +224,7 @@ function generateCustomType(service, group, name, paramName, paramType, param)
 //process all the openAPI files, then scrape the enum files
 function processAPIFiles()
 {
+    processErrorFiles(); //Must come before we process the OpenAPI files, because the response output depends on data from this function
     processOpenAPIFiles();
     processEnumFiles();
 }
@@ -184,33 +245,6 @@ function processOpenAPIFiles()
 
         const data = JSON.parse(fs.readFileSync(directory + 'openApiDocs/' + apiFiles[i]));
 
-        //Get the base response
-        const baseResponse = data.components.schemas.CoreResponseMessage;
-        if(responseOutput["CoreResponseMessage"] == null)
-        {
-            responseOutput["CoreResponseMessage"] =
-            `class response
-{
-    private htmlCode: number;
-    private htmldescription: string;
-    private mimeType: string;
-    private responseType: string;
-    private responseDescription: string;
-    private properties;
-
-    public constructor(htmlCode: number, htmldescription: string, mimeType: string, responseType: string, responseDescription: string, properties)
-    {
-        this.htmlCode = htmlCode;
-        this.htmldescription = htmldescription;
-        this.mimeType = mimeType;
-        this.responseType = responseType;
-        this.responseDescription = responseDescription;
-        this.properties = properties;
-    }
-}`
-        }
-        console.log(responseOutput["CoreResponseMessage"]);
-
         //Loop through all the endpoints in this file
         const keys = Object.keys(data.paths);
         for(let j = 0; j < keys.length; j ++)
@@ -222,6 +256,7 @@ function processOpenAPIFiles()
             const group = path.split("/")[2];
             const name = path.split("/")[3];
             const summary = endpoint.post.summary;
+            const responses = endpoint.post.responses;
 
             //Create our service and group if they don't exist already
             if(endpointsOutput[service] == null)
@@ -309,7 +344,115 @@ function processOpenAPIFiles()
             parametersObj += "}"
 
             //Generate the function definition for our endpoint
-            endpointsOutput[service][group] += '"' + name + '": function(' + functionInput + '){return Endpoints.getEndpointObject("' + name + '", "' + group + '", service.' + service + ', ' + parametersObj + ').run([' + functionInput.replaceAll(new RegExp(": [^:]*,", 'g'), ",").replaceAll("?", "").replaceAll(new RegExp(": .*$", 'g'), "") + ']);},';
+            endpointsOutput[service][group] += '"' + name + '": function(' + functionInput + '){return Endpoints.getEndpointObject("' + name + '", "' + group + '", service.' + service + ', ' + parametersObj + ').run([' + functionInput.replaceAll(new RegExp(": [^:]*,", 'g'), ",").replaceAll("?", "").replaceAll(new RegExp(": .*$", 'g'), "") + '])';
+
+            //Get the responses for this endpoint
+            const htmlKeys = Object.keys(responses);
+            for(let k = 0; k < htmlKeys.length; k++)
+            {
+                const htmlCode = htmlKeys[k];
+                const htmlDescription = responses[htmlCode].description;
+
+                const mimeKeys = Object.keys(responses[htmlCode].content);
+                for(let l = 0; l < mimeKeys.length; l++)
+                {
+                    const mimeType = mimeKeys[l];
+                    const response = responses[htmlCode].content[mimeType].schema;
+                    const responseDescription = response.description;
+                    var responseName = responseDescription;
+                    if(responseName.startsWith("Response type: "))
+                    {
+                        responseName = responseName.slice(15);
+                    }
+
+                    var responseList = response["allOf"];
+                    if(responseList == null)
+                    {
+                        throw "Properties in this response are not in allOf format. Need to implement looking at properties field"
+                    }
+
+                    if(responseList.length > 2)
+                    {
+                        throw "Multiple responses defined"
+                    }
+
+                    for(let m = 0; m < responseList.length; m++)
+                    {
+                        const currentResponse = responseList[m];
+                        
+                        if(currentResponse.description !== "Base response schema with common properties"
+                        && currentResponse.properties != null
+                        && currentResponse.properties.Value != null)
+                        {
+                            //console.log(responseName);
+                            if(responseOutput[responseName] == null)
+                            {
+                                responseOutput[responseName] = 'export type ' + responseName + ' =' + '\n{';
+                            }
+
+                            //console.log(currentResponse);
+                            const value = currentResponse.properties.Value;
+                            const valueType = checkType(service, group, name, "response value", value);
+
+                            responseOutput[responseName] += '\n\tValue: ' + valueType + ' | null';
+                        }
+                        else if(currentResponse.properties != null)
+                        {
+                            if(responseOutput[responseName] == null)
+                            {
+                                responseOutput[responseName] = 'export type ' + responseName + ' =' + '\n{';
+                            }
+
+                            //console.log(currentResponse.properties);
+                            const subpropertyKeys = Object.keys(currentResponse.properties);
+                            for(let n = 0; n < subpropertyKeys.length; n++)
+                            {
+                                const subpropertyName = subpropertyKeys[n];
+                                const subproperty = currentResponse.properties[subpropertyName];
+                                //console.log(subproperty);
+                                const subpropertyType = checkType(service, group, name, "baseSubProperty", subproperty);
+
+                                var byGroup = null;
+                                if(subpropertyName === "ErrorMessages")
+                                {
+                                    byGroup = errorsByGroup;
+                                }
+                                else if(subpropertyName === "WarningMessages")
+                                {
+                                    byGroup = warningsByGroup;
+                                }
+
+                                if(subpropertyType === "[Types.BaseMessageType]")
+                                {
+                                    console.log(group);
+                                    if(byGroup != null && byGroup[group] != null)
+                                    {
+                                        responseOutput[responseName] += '\n\t' + subpropertyName + ': ' + "[" + byGroup[group] + "]";
+                                    }
+                                    else
+                                    {
+                                        responseOutput[responseName] += '\n\t' + subpropertyName + ': ' + subpropertyType;
+                                    }
+
+                                    responseOutput[responseName] += ' | []'
+                                }
+                                else
+                                {
+                                    responseOutput[responseName] += '\n\t' + subpropertyName + ': ' + subpropertyType;
+                                }
+                            }
+                        }
+                    }
+
+                    responseOutput[responseName] += '\n}';
+
+                    /*if(endpointsOutput[service][group].search("as Promise<Responses.") != -1)
+                    {
+                        throw "Multiple responses match to the same endpoint"
+                    }*/
+                    endpointsOutput[service][group] += " as Promise<Responses." + responseName + ">;},";
+                }
+            }
         }
     }
 }
@@ -353,6 +496,126 @@ function processEnumFiles()
     }
 }
 
+//Scrape the error message files
+function processErrorFiles()
+{
+    var errorDoc = fs.readFileSync(directory + 'errorMessageFiles/errorMessages.mhtml').toString().replaceAll("=\r\n", "").replaceAll("\r\n", "").replaceAll("\n", "");
+
+    //Scrape the endpoint names
+    const endNameRe = new RegExp(">[^<]+</h2>", 'g');
+    const endNames = [...errorDoc.matchAll(endNameRe)];
+
+    //Split up the document into an array based on each of the endpoints
+    var errorArray = [];
+    for(let i = 0; i < endNames.length; i++)
+    {
+        var eName = endNames[i][0];
+
+        if(errorArray.length > 0)
+        {
+            errorDoc = errorArray.pop();
+        }
+
+        var split = errorDoc.split(eName);
+        if(split.length > 2)
+        {
+            throw "Split length > 2"
+        }
+
+        errorArray.push(split[0]);
+        errorArray.push(split[1]);
+    }
+
+    //Remove the first index which contains nothing
+    errorArray = errorArray.slice(1);
+    if(errorArray.length != endNames.length)
+    {
+        throw "Error parsing the errorResponseMessages errorArray.length != endNames.length"
+    }
+
+    //Go through the endpoints names and create all of the error response types
+    for(let i = 0; i < errorArray.length; i++)
+    {
+        var eName = endNames[i][0].replaceAll("</h2>", "").replaceAll(">", "");
+        var eData = errorArray[i];
+        var errors = eData.split("message-item").slice(1);
+
+        console.log("-----------------------------------")
+        console.log(eName);
+
+        for(let j = 0; j < errors.length; j++)
+        {
+            var data = errors[j];
+            console.log(data);
+            var mType = "Error";
+            if(data.search("message-type danger") === -1)
+            {
+                mType = "Warning"
+            }
+            var code = data[data.search("message-code") + 14];
+
+            const dNameRe = new RegExp('message-name">[^>]*</span', 'g');
+            const dNames = [...data.matchAll(dNameRe)];
+            if(dNames.length != 1)
+            {
+                continue;
+            }
+            var dName = dNames[0][0].replaceAll('message-name">', "").replaceAll("</span", "");
+
+            var parameters = "";
+            if(data.search("parameter-item") != -1)
+            {
+                const parameterData = data.split("parameter-item").slice(1);
+                console.log(parameterData);
+                for(let k = 0; k < parameterData.length; k++)
+                {
+                    const pNameRe = new RegExp('parameter-name">[^>]*</span', 'g');
+                    const pNames = [...data.matchAll(pNameRe)];
+                    var pName = pNames[0][0].replaceAll('parameter-name">', "").replaceAll("</span", "");
+
+                    const pTypesRe = new RegExp('parameter-type">[^>]*</span', 'g');
+                    const pTypes = [...data.matchAll(pTypesRe)];
+                    var pType = pTypes[0][0].replaceAll('parameter-type">', "").replaceAll("</span", "");
+                    if(TYPESCRIPT_TYPES[pType] != null)
+                    {
+                        pType = TYPESCRIPT_TYPES[pType];
+                    }
+                    if(pType === "List")
+                    {
+                        pType = "any";
+                    }
+
+                    parameters += " & {" + pName + ": " + pType  + "}"
+                }
+            }
+
+            var typeName = eName + "_" + dName;
+            if(errorOutput[typeName] == null)
+            {
+                errorOutput[typeName] = "export type " + typeName + " = Types.BaseMessageType" + parameters + ";";
+            }
+
+            if(mType === "Error" && errorsByGroup[eName] == null)
+            {
+                errorsByGroup[eName] = "Errors." + typeName;
+            }
+            else if(mType === "Error")
+            {
+                errorsByGroup[eName] += " | Errors." + typeName;
+            }
+
+            if(mType === "Warning" && errorsByGroup[eName] == null)
+            {
+                warningsByGroup[eName] = "Errors." + typeName;
+            }
+            else if(mType === "Warning")
+            {
+                warningsByGroup[eName] += " | Errors." + typeName;
+            }
+        }
+    }
+}
+
 //Write the endpointDefinitions
 function writeEndpoints()
 {
@@ -362,6 +625,7 @@ function writeEndpoints()
     fs.appendFileSync(outputLocation, 'import { Endpoints } from "../endpoints";\n');
     fs.appendFileSync(outputLocation, 'import * as Types from "./typeDefinitions";\n');
     fs.appendFileSync(outputLocation, 'import * as Enums from "./enumDefinitions";\n');
+    fs.appendFileSync(outputLocation, 'import * as Responses from "./responseDefinitions";\n');
     fs.appendFileSync(outputLocation, 'import { Service as service} from "./enumDefinitions";\n\n');
 
     fs.appendFileSync(outputLocation, "export const API = {");
@@ -403,7 +667,7 @@ function writeTypes()
     }
 }
 
-//Write the types defintitions
+//Write the enums defintitions
 function writeEnums()
 {
     const outputLocation = directory + '../apiDefinitions/enumDefinitions.ts';
@@ -419,7 +683,45 @@ function writeEnums()
     }
 }
 
+//Write the response defintitions
+function writeResponses()
+{
+    const outputLocation = directory + '../apiDefinitions/responseDefinitions.ts';
+
+    fs.writeFileSync(outputLocation, "//responseDefinitions.ts auto generated by builder.js\n");
+    fs.appendFileSync(outputLocation, "import * as Enums from './enumDefinitions'\n");
+    fs.appendFileSync(outputLocation, "import * as Types from './typeDefinitions'\n");
+    fs.appendFileSync(outputLocation, "import * as Errors from './errorDefinitions'\n");
+
+    const responseKeys = Object.keys(responseOutput);
+    for(let i = 0; i < responseKeys.length; i++)
+    {
+        fs.appendFileSync(outputLocation, '\n' + responseOutput[responseKeys[i]]);
+    }
+}
+
+//Write the error/warning definitions
+function writeErrors()
+{
+    const outputLocation = directory + '../apiDefinitions/errorDefinitions.ts';
+
+    fs.writeFileSync(outputLocation, "//errorDefinitions.ts auto generated by builder.js\n");
+    fs.appendFileSync(outputLocation, "import * as Enums from './enumDefinitions'\n");
+    fs.appendFileSync(outputLocation, "import * as Types from './typeDefinitions'\n");
+    fs.appendFileSync(outputLocation, "import * as Responses from './responseDefinitions'\n");
+
+    
+
+    const responseKeys = Object.keys(errorOutput);
+    for(let i = 0; i < responseKeys.length; i++)
+    {
+        fs.appendFileSync(outputLocation, '\n' + errorOutput[responseKeys[i]]);
+    }
+}
+
 processAPIFiles();
 writeEndpoints();
 writeTypes();
 writeEnums();
+writeResponses();
+writeErrors();

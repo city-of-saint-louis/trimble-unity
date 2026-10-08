@@ -3,6 +3,7 @@
 import { Endpoints } from "../endpoints";
 import * as Types from "./typeDefinitions";
 import * as Enums from "./enumDefinitions";
+import * as Responses from "./responseDefinitions";
 import { Service as service} from "./enumDefinitions";
 
 export const API = {
@@ -30,7 +31,7 @@ export const API = {
 			 * @param {number} Y
 			 * @param {number} Z
 			 */
-			"Create": function(CaseTypeId: number, AcceptedBy?: number, AssignedTo?: number, CaseDataDetails?: [Types.CaDataDetailItem], CaseName?: string, CaseNumber?: string, DateAccepted?: string, InitiatedByApp?: string, Location?: string, ProjectCode?: string, ProjectSid?: number, SubTypeId?: number, VcsWKID?: number, WKID?: number, WKT?: string, X?: number, Y?: number, Z?: number){return Endpoints.getEndpointObject("Create", "Case", service.Pll, {"CaseTypeId": {name: "CaseTypeId", type: "number", required: true, description: ""}, "AcceptedBy": {name: "AcceptedBy", type: "number", required: false, description: ""}, "AssignedTo": {name: "AssignedTo", type: "number", required: false, description: ""}, "CaseDataDetails": {name: "CaseDataDetails", type: "[Types.CaDataDetailItem]", required: false, description: "Optional. When supplied, these CaDataDetailItem values are used to satisfy any Case Data Details marked as Required at Intake. Other panels (fees, violations, deposits, tasks, etc.) continue to be auto-created from the case template."}, "CaseName": {name: "CaseName", type: "string", required: false, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "DateAccepted": {name: "DateAccepted", type: "string", required: false, description: ""}, "InitiatedByApp": {name: "InitiatedByApp", type: "string", required: false, description: ""}, "Location": {name: "Location", type: "string", required: false, description: ""}, "ProjectCode": {name: "ProjectCode", type: "string", required: false, description: ""}, "ProjectSid": {name: "ProjectSid", type: "number", required: false, description: ""}, "SubTypeId": {name: "SubTypeId", type: "number", required: false, description: ""}, "VcsWKID": {name: "VcsWKID", type: "number", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "WKT": {name: "WKT", type: "string", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "X": {name: "X", type: "number", required: false, description: ""}, "Y": {name: "Y", type: "number", required: false, description: ""}, "Z": {name: "Z", type: "number", required: false, description: ""}}).run([CaseTypeId, AcceptedBy, AssignedTo, CaseDataDetails, CaseName, CaseNumber, DateAccepted, InitiatedByApp, Location, ProjectCode, ProjectSid, SubTypeId, VcsWKID, WKID, WKT, X, Y, Z]);},
+			"Create": function(CaseTypeId: number, AcceptedBy?: number, AssignedTo?: number, CaseDataDetails?: [Types.CaDataDetailItem], CaseName?: string, CaseNumber?: string, DateAccepted?: string, InitiatedByApp?: string, Location?: string, ProjectCode?: string, ProjectSid?: number, SubTypeId?: number, VcsWKID?: number, WKID?: number, WKT?: string, X?: number, Y?: number, Z?: number){return Endpoints.getEndpointObject("Create", "Case", service.Pll, {"CaseTypeId": {name: "CaseTypeId", type: "number", required: true, description: ""}, "AcceptedBy": {name: "AcceptedBy", type: "number", required: false, description: ""}, "AssignedTo": {name: "AssignedTo", type: "number", required: false, description: ""}, "CaseDataDetails": {name: "CaseDataDetails", type: "[Types.CaDataDetailItem]", required: false, description: "Optional. When supplied, these CaDataDetailItem values are used to satisfy any Case Data Details marked as Required at Intake. Other panels (fees, violations, deposits, tasks, etc.) continue to be auto-created from the case template."}, "CaseName": {name: "CaseName", type: "string", required: false, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "DateAccepted": {name: "DateAccepted", type: "string", required: false, description: ""}, "InitiatedByApp": {name: "InitiatedByApp", type: "string", required: false, description: ""}, "Location": {name: "Location", type: "string", required: false, description: ""}, "ProjectCode": {name: "ProjectCode", type: "string", required: false, description: ""}, "ProjectSid": {name: "ProjectSid", type: "number", required: false, description: ""}, "SubTypeId": {name: "SubTypeId", type: "number", required: false, description: ""}, "VcsWKID": {name: "VcsWKID", type: "number", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "WKT": {name: "WKT", type: "string", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "X": {name: "X", type: "number", required: false, description: ""}, "Y": {name: "Y", type: "number", required: false, description: ""}, "Z": {name: "Z", type: "number", required: false, description: ""}}).run([CaseTypeId, AcceptedBy, AssignedTo, CaseDataDetails, CaseName, CaseNumber, DateAccepted, InitiatedByApp, Location, ProjectCode, ProjectSid, SubTypeId, VcsWKID, WKID, WKT, X, Y, Z]) as Promise<Responses.CreateResponse>;},
 			/**
 			 * Create a child case
 			 * 
@@ -51,7 +52,7 @@ export const API = {
 			 * @param {number} WKID - Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected
 			 * @param {string} WKT - Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected
 			 */
-			"CreateChild": function(BusCaseId: number, ParentCaObjectId: number, AcceptedBy?: number, CaseName?: string, CaseNumber?: string, CasePerParentAddress?: boolean, CX?: number, CY?: number, CZ?: number, DateAccepted?: string, Location?: string, NoOfCases?: number, ProjectCode?: string, VcsWKID?: number, WKID?: number, WKT?: string){return Endpoints.getEndpointObject("CreateChild", "Case", service.Pll, {"BusCaseId": {name: "BusCaseId", type: "number", required: true, description: ""}, "ParentCaObjectId": {name: "ParentCaObjectId", type: "number", required: true, description: ""}, "AcceptedBy": {name: "AcceptedBy", type: "number", required: false, description: ""}, "CaseName": {name: "CaseName", type: "string", required: false, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "CasePerParentAddress": {name: "CasePerParentAddress", type: "boolean", required: false, description: "Create one case for each parent address"}, "CX": {name: "CX", type: "number", required: false, description: ""}, "CY": {name: "CY", type: "number", required: false, description: ""}, "CZ": {name: "CZ", type: "number", required: false, description: ""}, "DateAccepted": {name: "DateAccepted", type: "string", required: false, description: ""}, "Location": {name: "Location", type: "string", required: false, description: ""}, "NoOfCases": {name: "NoOfCases", type: "number", required: false, description: ""}, "ProjectCode": {name: "ProjectCode", type: "string", required: false, description: ""}, "VcsWKID": {name: "VcsWKID", type: "number", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "WKT": {name: "WKT", type: "string", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}}).run([BusCaseId, ParentCaObjectId, AcceptedBy, CaseName, CaseNumber, CasePerParentAddress, CX, CY, CZ, DateAccepted, Location, NoOfCases, ProjectCode, VcsWKID, WKID, WKT]);},
+			"CreateChild": function(BusCaseId: number, ParentCaObjectId: number, AcceptedBy?: number, CaseName?: string, CaseNumber?: string, CasePerParentAddress?: boolean, CX?: number, CY?: number, CZ?: number, DateAccepted?: string, Location?: string, NoOfCases?: number, ProjectCode?: string, VcsWKID?: number, WKID?: number, WKT?: string){return Endpoints.getEndpointObject("CreateChild", "Case", service.Pll, {"BusCaseId": {name: "BusCaseId", type: "number", required: true, description: ""}, "ParentCaObjectId": {name: "ParentCaObjectId", type: "number", required: true, description: ""}, "AcceptedBy": {name: "AcceptedBy", type: "number", required: false, description: ""}, "CaseName": {name: "CaseName", type: "string", required: false, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "CasePerParentAddress": {name: "CasePerParentAddress", type: "boolean", required: false, description: "Create one case for each parent address"}, "CX": {name: "CX", type: "number", required: false, description: ""}, "CY": {name: "CY", type: "number", required: false, description: ""}, "CZ": {name: "CZ", type: "number", required: false, description: ""}, "DateAccepted": {name: "DateAccepted", type: "string", required: false, description: ""}, "Location": {name: "Location", type: "string", required: false, description: ""}, "NoOfCases": {name: "NoOfCases", type: "number", required: false, description: ""}, "ProjectCode": {name: "ProjectCode", type: "string", required: false, description: ""}, "VcsWKID": {name: "VcsWKID", type: "number", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}, "WKT": {name: "WKT", type: "string", required: false, description: "Must provide well known id (WKID) or well known text (WKT) if XY needs to be projected"}}).run([BusCaseId, ParentCaObjectId, AcceptedBy, CaseName, CaseNumber, CasePerParentAddress, CX, CY, CZ, DateAccepted, Location, NoOfCases, ProjectCode, VcsWKID, WKID, WKT]) as Promise<Responses.CreateChildResponse>;},
 			/**
 			 * Create a case
 			 * 
@@ -76,7 +77,7 @@ export const API = {
 			 * @param {[Types.CaViolationsItem]} CaseViolations
 			 * @param {[Types.CustomColumnsDetailItem]} IntakeCustomFields
 			 */
-			"CreateFromIntake": function(CaseObject: Types.CaObjectItem, CaseAddresses?: [Types.CaAddressItem], CaseConditions?: [Types.CaConditionItem], CaseContractors?: [Types.CaContractorItemWithSubContractors], CaseDataDetails?: [Types.CaDataDetailItem], CaseDataGroups?: [Types.CaDataGroupItem], CaseDeposits?: [Types.CaDepositItem], CaseFees?: [Types.CaFeesItem], CaseFlags?: [Types.CaFlagsItem], CaseInspectionRequests?: [Types.CaInspectionRequestItem], CaseInstruments?: [Types.CaInstrumentItem], CaseLicenses?: [Types.CaLicenseItem], CaseNotes?: [Types.CaNotesItem], CasePayments?: [Types.CaPaymentItem], CasePeoples?: [Types.CaPeopleItem], CasePerAsset?: boolean, CaseRelDocs?: [Types.CaRelDocsItem], CaseTasks?: [Types.CaTaskItem], CaseViolations?: [Types.CaViolationsItem], IntakeCustomFields?: [Types.CustomColumnsDetailItem]){return Endpoints.getEndpointObject("CreateFromIntake", "Case", service.Pll, {"CaseObject": {name: "CaseObject", type: "Types.CaObjectItem", required: true, description: "Type: CaObjectItem"}, "CaseAddresses": {name: "CaseAddresses", type: "[Types.CaAddressItem]", required: false, description: ""}, "CaseConditions": {name: "CaseConditions", type: "[Types.CaConditionItem]", required: false, description: ""}, "CaseContractors": {name: "CaseContractors", type: "[Types.CaContractorItemWithSubContractors]", required: false, description: ""}, "CaseDataDetails": {name: "CaseDataDetails", type: "[Types.CaDataDetailItem]", required: false, description: ""}, "CaseDataGroups": {name: "CaseDataGroups", type: "[Types.CaDataGroupItem]", required: false, description: ""}, "CaseDeposits": {name: "CaseDeposits", type: "[Types.CaDepositItem]", required: false, description: ""}, "CaseFees": {name: "CaseFees", type: "[Types.CaFeesItem]", required: false, description: ""}, "CaseFlags": {name: "CaseFlags", type: "[Types.CaFlagsItem]", required: false, description: ""}, "CaseInspectionRequests": {name: "CaseInspectionRequests", type: "[Types.CaInspectionRequestItem]", required: false, description: ""}, "CaseInstruments": {name: "CaseInstruments", type: "[Types.CaInstrumentItem]", required: false, description: ""}, "CaseLicenses": {name: "CaseLicenses", type: "[Types.CaLicenseItem]", required: false, description: ""}, "CaseNotes": {name: "CaseNotes", type: "[Types.CaNotesItem]", required: false, description: ""}, "CasePayments": {name: "CasePayments", type: "[Types.CaPaymentItem]", required: false, description: ""}, "CasePeoples": {name: "CasePeoples", type: "[Types.CaPeopleItem]", required: false, description: ""}, "CasePerAsset": {name: "CasePerAsset", type: "boolean", required: false, description: ""}, "CaseRelDocs": {name: "CaseRelDocs", type: "[Types.CaRelDocsItem]", required: false, description: ""}, "CaseTasks": {name: "CaseTasks", type: "[Types.CaTaskItem]", required: false, description: ""}, "CaseViolations": {name: "CaseViolations", type: "[Types.CaViolationsItem]", required: false, description: ""}, "IntakeCustomFields": {name: "IntakeCustomFields", type: "[Types.CustomColumnsDetailItem]", required: false, description: ""}}).run([CaseObject, CaseAddresses, CaseConditions, CaseContractors, CaseDataDetails, CaseDataGroups, CaseDeposits, CaseFees, CaseFlags, CaseInspectionRequests, CaseInstruments, CaseLicenses, CaseNotes, CasePayments, CasePeoples, CasePerAsset, CaseRelDocs, CaseTasks, CaseViolations, IntakeCustomFields]);},
+			"CreateFromIntake": function(CaseObject: Types.CaObjectItem, CaseAddresses?: [Types.CaAddressItem], CaseConditions?: [Types.CaConditionItem], CaseContractors?: [Types.CaContractorItemWithSubContractors], CaseDataDetails?: [Types.CaDataDetailItem], CaseDataGroups?: [Types.CaDataGroupItem], CaseDeposits?: [Types.CaDepositItem], CaseFees?: [Types.CaFeesItem], CaseFlags?: [Types.CaFlagsItem], CaseInspectionRequests?: [Types.CaInspectionRequestItem], CaseInstruments?: [Types.CaInstrumentItem], CaseLicenses?: [Types.CaLicenseItem], CaseNotes?: [Types.CaNotesItem], CasePayments?: [Types.CaPaymentItem], CasePeoples?: [Types.CaPeopleItem], CasePerAsset?: boolean, CaseRelDocs?: [Types.CaRelDocsItem], CaseTasks?: [Types.CaTaskItem], CaseViolations?: [Types.CaViolationsItem], IntakeCustomFields?: [Types.CustomColumnsDetailItem]){return Endpoints.getEndpointObject("CreateFromIntake", "Case", service.Pll, {"CaseObject": {name: "CaseObject", type: "Types.CaObjectItem", required: true, description: "Type: CaObjectItem"}, "CaseAddresses": {name: "CaseAddresses", type: "[Types.CaAddressItem]", required: false, description: ""}, "CaseConditions": {name: "CaseConditions", type: "[Types.CaConditionItem]", required: false, description: ""}, "CaseContractors": {name: "CaseContractors", type: "[Types.CaContractorItemWithSubContractors]", required: false, description: ""}, "CaseDataDetails": {name: "CaseDataDetails", type: "[Types.CaDataDetailItem]", required: false, description: ""}, "CaseDataGroups": {name: "CaseDataGroups", type: "[Types.CaDataGroupItem]", required: false, description: ""}, "CaseDeposits": {name: "CaseDeposits", type: "[Types.CaDepositItem]", required: false, description: ""}, "CaseFees": {name: "CaseFees", type: "[Types.CaFeesItem]", required: false, description: ""}, "CaseFlags": {name: "CaseFlags", type: "[Types.CaFlagsItem]", required: false, description: ""}, "CaseInspectionRequests": {name: "CaseInspectionRequests", type: "[Types.CaInspectionRequestItem]", required: false, description: ""}, "CaseInstruments": {name: "CaseInstruments", type: "[Types.CaInstrumentItem]", required: false, description: ""}, "CaseLicenses": {name: "CaseLicenses", type: "[Types.CaLicenseItem]", required: false, description: ""}, "CaseNotes": {name: "CaseNotes", type: "[Types.CaNotesItem]", required: false, description: ""}, "CasePayments": {name: "CasePayments", type: "[Types.CaPaymentItem]", required: false, description: ""}, "CasePeoples": {name: "CasePeoples", type: "[Types.CaPeopleItem]", required: false, description: ""}, "CasePerAsset": {name: "CasePerAsset", type: "boolean", required: false, description: ""}, "CaseRelDocs": {name: "CaseRelDocs", type: "[Types.CaRelDocsItem]", required: false, description: ""}, "CaseTasks": {name: "CaseTasks", type: "[Types.CaTaskItem]", required: false, description: ""}, "CaseViolations": {name: "CaseViolations", type: "[Types.CaViolationsItem]", required: false, description: ""}, "IntakeCustomFields": {name: "IntakeCustomFields", type: "[Types.CustomColumnsDetailItem]", required: false, description: ""}}).run([CaseObject, CaseAddresses, CaseConditions, CaseContractors, CaseDataDetails, CaseDataGroups, CaseDeposits, CaseFees, CaseFlags, CaseInspectionRequests, CaseInstruments, CaseLicenses, CaseNotes, CasePayments, CasePeoples, CasePerAsset, CaseRelDocs, CaseTasks, CaseViolations, IntakeCustomFields]) as Promise<Responses.CreateFromIntakeResponse>;},
 			/**
 			 * Create a case by using Case Type, Sub Type, and Work Order Id
 			 * 
@@ -86,19 +87,19 @@ export const API = {
 			 * @param {string} InitiatedByApp
 			 * @param {number} SubTypeId
 			 */
-			"CreateFromWorkOrder": function(CaseTypeId: number, WorkOrderId: string, CaseNumber?: string, InitiatedByApp?: string, SubTypeId?: number){return Endpoints.getEndpointObject("CreateFromWorkOrder", "Case", service.Pll, {"CaseTypeId": {name: "CaseTypeId", type: "number", required: true, description: ""}, "WorkOrderId": {name: "WorkOrderId", type: "string", required: true, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "InitiatedByApp": {name: "InitiatedByApp", type: "string", required: false, description: ""}, "SubTypeId": {name: "SubTypeId", type: "number", required: false, description: ""}}).run([CaseTypeId, WorkOrderId, CaseNumber, InitiatedByApp, SubTypeId]);},
+			"CreateFromWorkOrder": function(CaseTypeId: number, WorkOrderId: string, CaseNumber?: string, InitiatedByApp?: string, SubTypeId?: number){return Endpoints.getEndpointObject("CreateFromWorkOrder", "Case", service.Pll, {"CaseTypeId": {name: "CaseTypeId", type: "number", required: true, description: ""}, "WorkOrderId": {name: "WorkOrderId", type: "string", required: true, description: ""}, "CaseNumber": {name: "CaseNumber", type: "string", required: false, description: ""}, "InitiatedByApp": {name: "InitiatedByApp", type: "string", required: false, description: ""}, "SubTypeId": {name: "SubTypeId", type: "number", required: false, description: ""}}).run([CaseTypeId, WorkOrderId, CaseNumber, InitiatedByApp, SubTypeId]) as Promise<Responses.CreateFromWorkOrderResponse>;},
 			/**
 			 * Get case default data by business case id
 			 * 
 			 * @param {number} BusCaseId
 			 */
-			"GetDefaultItems": function(BusCaseId: number){return Endpoints.getEndpointObject("GetDefaultItems", "Case", service.Pll, {"BusCaseId": {name: "BusCaseId", type: "number", required: true, description: ""}}).run([BusCaseId]);},
+			"GetDefaultItems": function(BusCaseId: number){return Endpoints.getEndpointObject("GetDefaultItems", "Case", service.Pll, {"BusCaseId": {name: "BusCaseId", type: "number", required: true, description: ""}}).run([BusCaseId]) as Promise<Responses.GetDefaultItemsResponse>;},
 			/**
 			 * Get case default data by business case id list
 			 * 
 			 * @param {[number]} BusCaseIds
 			 */
-			"GetDefaultItemsList": function(BusCaseIds: [number]){return Endpoints.getEndpointObject("GetDefaultItemsList", "Case", service.Pll, {"BusCaseIds": {name: "BusCaseIds", type: "[number]", required: true, description: ""}}).run([BusCaseIds]);},
+			"GetDefaultItemsList": function(BusCaseIds: [number]){return Endpoints.getEndpointObject("GetDefaultItemsList", "Case", service.Pll, {"BusCaseIds": {name: "BusCaseIds", type: "[number]", required: true, description: ""}}).run([BusCaseIds]) as Promise<Responses.GetDefaultItemsListResponse>;},
 		},
 	},
 	"Ams": {
@@ -114,26 +115,26 @@ export const API = {
 			 * @param {number} YMax
 			 * @param {number} YMin
 			 */
-			"AddBookmark": function(ExtentName: string, IsDefault?: boolean, SharedWithin?: number, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("AddBookmark", "Bookmark", service.Ams, {"ExtentName": {name: "ExtentName", type: "string", required: true, description: ""}, "IsDefault": {name: "IsDefault", type: "boolean", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentName, IsDefault, SharedWithin, XMax, XMin, YMax, YMin]);},
+			"AddBookmark": function(ExtentName: string, IsDefault?: boolean, SharedWithin?: number, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("AddBookmark", "Bookmark", service.Ams, {"ExtentName": {name: "ExtentName", type: "string", required: true, description: ""}, "IsDefault": {name: "IsDefault", type: "boolean", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentName, IsDefault, SharedWithin, XMax, XMin, YMax, YMin]) as Promise<Responses.AddBookmarkResponse>;},
 			/**
 			 * Add new user map scale
 			 * 
 			 * @param {number} Scale
 			 * @param {number} SharedWithin
 			 */
-			"AddScale": function(Scale?: number, SharedWithin?: number){return Endpoints.getEndpointObject("AddScale", "Bookmark", service.Ams, {"Scale": {name: "Scale", type: "number", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}}).run([Scale, SharedWithin]);},
+			"AddScale": function(Scale?: number, SharedWithin?: number){return Endpoints.getEndpointObject("AddScale", "Bookmark", service.Ams, {"Scale": {name: "Scale", type: "number", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}}).run([Scale, SharedWithin]) as Promise<Responses.AddScaleResponse>;},
 			/**
 			 * Delete bookmarks
 			 * 
 			 * @param {[number]} BookmarkIds
 			 */
-			"DeleteBookmarks": function(BookmarkIds?: [number]){return Endpoints.getEndpointObject("DeleteBookmarks", "Bookmark", service.Ams, {"BookmarkIds": {name: "BookmarkIds", type: "[number]", required: false, description: ""}}).run([BookmarkIds]);},
+			"DeleteBookmarks": function(BookmarkIds?: [number]){return Endpoints.getEndpointObject("DeleteBookmarks", "Bookmark", service.Ams, {"BookmarkIds": {name: "BookmarkIds", type: "[number]", required: false, description: ""}}).run([BookmarkIds]) as Promise<Responses.DeleteBookmarksResponse>;},
 			/**
 			 * Delete user map scales
 			 * 
 			 * @param {[number]} ScaleIds
 			 */
-			"DeleteScales": function(ScaleIds?: [number]){return Endpoints.getEndpointObject("DeleteScales", "Bookmark", service.Ams, {"ScaleIds": {name: "ScaleIds", type: "[number]", required: false, description: ""}}).run([ScaleIds]);},
+			"DeleteScales": function(ScaleIds?: [number]){return Endpoints.getEndpointObject("DeleteScales", "Bookmark", service.Ams, {"ScaleIds": {name: "ScaleIds", type: "[number]", required: false, description: ""}}).run([ScaleIds]) as Promise<Responses.DeleteScalesResponse>;},
 			/**
 			 * Get map bookmarks
 			 * 
@@ -144,7 +145,7 @@ export const API = {
 			 * @param {number} WKID
 			 * @param {string} WKT
 			 */
-			"GetBookmarks": function(DomainId?: number, EmployeeSid?: number, GroupId?: number, IncludeShared?: boolean, WKID?: number, WKT?: string){return Endpoints.getEndpointObject("GetBookmarks", "Bookmark", service.Ams, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "EmployeeSid": {name: "EmployeeSid", type: "number", required: false, description: ""}, "GroupId": {name: "GroupId", type: "number", required: false, description: ""}, "IncludeShared": {name: "IncludeShared", type: "boolean", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: ""}, "WKT": {name: "WKT", type: "string", required: false, description: ""}}).run([DomainId, EmployeeSid, GroupId, IncludeShared, WKID, WKT]);},
+			"GetBookmarks": function(DomainId?: number, EmployeeSid?: number, GroupId?: number, IncludeShared?: boolean, WKID?: number, WKT?: string){return Endpoints.getEndpointObject("GetBookmarks", "Bookmark", service.Ams, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "EmployeeSid": {name: "EmployeeSid", type: "number", required: false, description: ""}, "GroupId": {name: "GroupId", type: "number", required: false, description: ""}, "IncludeShared": {name: "IncludeShared", type: "boolean", required: false, description: ""}, "WKID": {name: "WKID", type: "number", required: false, description: ""}, "WKT": {name: "WKT", type: "string", required: false, description: ""}}).run([DomainId, EmployeeSid, GroupId, IncludeShared, WKID, WKT]) as Promise<Responses.GetBookmarksResponse>;},
 			/**
 			 * Get user map scales
 			 * 
@@ -153,7 +154,7 @@ export const API = {
 			 * @param {number} GroupId
 			 * @param {boolean} IncludeShared
 			 */
-			"GetScales": function(DomainId?: number, EmployeeSid?: number, GroupId?: number, IncludeShared?: boolean){return Endpoints.getEndpointObject("GetScales", "Bookmark", service.Ams, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "EmployeeSid": {name: "EmployeeSid", type: "number", required: false, description: ""}, "GroupId": {name: "GroupId", type: "number", required: false, description: ""}, "IncludeShared": {name: "IncludeShared", type: "boolean", required: false, description: ""}}).run([DomainId, EmployeeSid, GroupId, IncludeShared]);},
+			"GetScales": function(DomainId?: number, EmployeeSid?: number, GroupId?: number, IncludeShared?: boolean){return Endpoints.getEndpointObject("GetScales", "Bookmark", service.Ams, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "EmployeeSid": {name: "EmployeeSid", type: "number", required: false, description: ""}, "GroupId": {name: "GroupId", type: "number", required: false, description: ""}, "IncludeShared": {name: "IncludeShared", type: "boolean", required: false, description: ""}}).run([DomainId, EmployeeSid, GroupId, IncludeShared]) as Promise<Responses.GetScalesResponse>;},
 			/**
 			 * Set initial extent.
 			 * 
@@ -163,7 +164,7 @@ export const API = {
 			 * @param {number} YMax
 			 * @param {number} YMin
 			 */
-			"SetInitialExtent": function(ExtentName?: string, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("SetInitialExtent", "Bookmark", service.Ams, {"ExtentName": {name: "ExtentName", type: "string", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentName, XMax, XMin, YMax, YMin]);},
+			"SetInitialExtent": function(ExtentName?: string, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("SetInitialExtent", "Bookmark", service.Ams, {"ExtentName": {name: "ExtentName", type: "string", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentName, XMax, XMin, YMax, YMin]) as Promise<Responses.SetInitialExtentResponse>;},
 			/**
 			 * Update map bookmark
 			 * 
@@ -176,7 +177,7 @@ export const API = {
 			 * @param {number} YMax
 			 * @param {number} YMin
 			 */
-			"UpdateBookmark": function(ExtentId: number, ExtentName?: string, IsDefault?: boolean, SharedWithin?: number, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("UpdateBookmark", "Bookmark", service.Ams, {"ExtentId": {name: "ExtentId", type: "number", required: true, description: ""}, "ExtentName": {name: "ExtentName", type: "string", required: false, description: ""}, "IsDefault": {name: "IsDefault", type: "boolean", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentId, ExtentName, IsDefault, SharedWithin, XMax, XMin, YMax, YMin]);},
+			"UpdateBookmark": function(ExtentId: number, ExtentName?: string, IsDefault?: boolean, SharedWithin?: number, XMax?: number, XMin?: number, YMax?: number, YMin?: number){return Endpoints.getEndpointObject("UpdateBookmark", "Bookmark", service.Ams, {"ExtentId": {name: "ExtentId", type: "number", required: true, description: ""}, "ExtentName": {name: "ExtentName", type: "string", required: false, description: ""}, "IsDefault": {name: "IsDefault", type: "boolean", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}, "XMax": {name: "XMax", type: "number", required: false, description: ""}, "XMin": {name: "XMin", type: "number", required: false, description: ""}, "YMax": {name: "YMax", type: "number", required: false, description: ""}, "YMin": {name: "YMin", type: "number", required: false, description: ""}}).run([ExtentId, ExtentName, IsDefault, SharedWithin, XMax, XMin, YMax, YMin]) as Promise<Responses.UpdateBookmarkResponse>;},
 			/**
 			 * Update user map scale
 			 * 
@@ -184,7 +185,7 @@ export const API = {
 			 * @param {number} Scale
 			 * @param {number} SharedWithin
 			 */
-			"UpdateScale": function(ScaleId: number, Scale?: number, SharedWithin?: number){return Endpoints.getEndpointObject("UpdateScale", "Bookmark", service.Ams, {"ScaleId": {name: "ScaleId", type: "number", required: true, description: ""}, "Scale": {name: "Scale", type: "number", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}}).run([ScaleId, Scale, SharedWithin]);},
+			"UpdateScale": function(ScaleId: number, Scale?: number, SharedWithin?: number){return Endpoints.getEndpointObject("UpdateScale", "Bookmark", service.Ams, {"ScaleId": {name: "ScaleId", type: "number", required: true, description: ""}, "Scale": {name: "Scale", type: "number", required: false, description: ""}, "SharedWithin": {name: "SharedWithin", type: "number", required: false, description: ""}}).run([ScaleId, Scale, SharedWithin]) as Promise<Responses.UpdateScaleResponse>;},
 		},
 		"Attachments": {			
 			/**
@@ -198,7 +199,7 @@ export const API = {
 			 * @param {string} Description
 			 * @param {string} Title
 			 */
-			"AddActivityFileLink": function(ActivitySid: number, ActivityType: Enums.AttachmentType, Path: string, AttachmentType?: number, Comments?: string, Description?: string, Title?: string){return Endpoints.getEndpointObject("AddActivityFileLink", "Attachments", service.Ams, {"ActivitySid": {name: "ActivitySid", type: "number", required: true, description: "Use WorkOrderSid for Work Orders"}, "ActivityType": {name: "ActivityType", type: "Enums.AttachmentType", required: true, description: "Enum: AttachmentType"}, "Path": {name: "Path", type: "string", required: true, description: "'http(s)://' is required for AttachmentType == 2. Use single '/' for File/UNC paths e.g. 'C:/attachments/file.pdf', '//Trimble_Unity/attachments/file.pdf'"}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT). A value of 1 (SIGNATURE) is invalid"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Description": {name: "Description", type: "string", required: false, description: ""}, "Title": {name: "Title", type: "string", required: false, description: ""}}).run([ActivitySid, ActivityType, Path, AttachmentType, Comments, Description, Title]);},
+			"AddActivityFileLink": function(ActivitySid: number, ActivityType: Enums.AttachmentType, Path: string, AttachmentType?: number, Comments?: string, Description?: string, Title?: string){return Endpoints.getEndpointObject("AddActivityFileLink", "Attachments", service.Ams, {"ActivitySid": {name: "ActivitySid", type: "number", required: true, description: "Use WorkOrderSid for Work Orders"}, "ActivityType": {name: "ActivityType", type: "Enums.AttachmentType", required: true, description: "Enum: AttachmentType"}, "Path": {name: "Path", type: "string", required: true, description: "'http(s)://' is required for AttachmentType == 2. Use single '/' for File/UNC paths e.g. 'C:/attachments/file.pdf', '//Trimble_Unity/attachments/file.pdf'"}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT). A value of 1 (SIGNATURE) is invalid"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Description": {name: "Description", type: "string", required: false, description: ""}, "Title": {name: "Title", type: "string", required: false, description: ""}}).run([ActivitySid, ActivityType, Path, AttachmentType, Comments, Description, Title]) as Promise<Responses.AddActivityFileLinkResponse>;},
 			/**
 			 * Add an inspection attachment
 			 * 
@@ -209,7 +210,7 @@ export const API = {
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 * @param {number} InspQuestionId
 			 */
-			"AddInspectionAttachment": function(InspectionId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean, InspQuestionId?: number){return Endpoints.getEndpointObject("AddInspectionAttachment", "Attachments", service.Ams, {"InspectionId": {name: "InspectionId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}, "InspQuestionId": {name: "InspQuestionId", type: "number", required: false, description: ""}}).run([InspectionId, AttachmentType, Comments, Filename, IgnoreFileError, InspQuestionId]);},
+			"AddInspectionAttachment": function(InspectionId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean, InspQuestionId?: number){return Endpoints.getEndpointObject("AddInspectionAttachment", "Attachments", service.Ams, {"InspectionId": {name: "InspectionId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}, "InspQuestionId": {name: "InspQuestionId", type: "number", required: false, description: ""}}).run([InspectionId, AttachmentType, Comments, Filename, IgnoreFileError, InspQuestionId]) as Promise<Responses.AddInspectionAttachmentResponse>;},
 			/**
 			 * Add a Manhole inspection attachment
 			 * 
@@ -218,7 +219,7 @@ export const API = {
 			 * @param {string} Filename
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 */
-			"AddManholeInspAttachment": function(ManholeInspectionId: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddManholeInspAttachment", "Attachments", service.Ams, {"ManholeInspectionId": {name: "ManholeInspectionId", type: "number", required: true, description: ""}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([ManholeInspectionId, Comments, Filename, IgnoreFileError]);},
+			"AddManholeInspAttachment": function(ManholeInspectionId: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddManholeInspAttachment", "Attachments", service.Ams, {"ManholeInspectionId": {name: "ManholeInspectionId", type: "number", required: true, description: ""}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([ManholeInspectionId, Comments, Filename, IgnoreFileError]) as Promise<Responses.AddManholeInspAttachmentResponse>;},
 			/**
 			 * Add a service request attachment
 			 * 
@@ -227,7 +228,7 @@ export const API = {
 			 * @param {string} Filename
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 */
-			"AddRequestAttachment": function(RequestId: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddRequestAttachment", "Attachments", service.Ams, {"RequestId": {name: "RequestId", type: "number", required: true, description: ""}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([RequestId, Comments, Filename, IgnoreFileError]);},
+			"AddRequestAttachment": function(RequestId: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddRequestAttachment", "Attachments", service.Ams, {"RequestId": {name: "RequestId", type: "number", required: true, description: ""}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([RequestId, Comments, Filename, IgnoreFileError]) as Promise<Responses.AddRequestAttachmentResponse>;},
 			/**
 			 * Add a Tv inspection attachment
 			 * 
@@ -237,7 +238,7 @@ export const API = {
 			 * @param {string} Filename
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 */
-			"AddTvInspectionAttachment": function(TvId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddTvInspectionAttachment", "Attachments", service.Ams, {"TvId": {name: "TvId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([TvId, AttachmentType, Comments, Filename, IgnoreFileError]);},
+			"AddTvInspectionAttachment": function(TvId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddTvInspectionAttachment", "Attachments", service.Ams, {"TvId": {name: "TvId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([TvId, AttachmentType, Comments, Filename, IgnoreFileError]) as Promise<Responses.AddTvInspectionAttachmentResponse>;},
 			/**
 			 * Add a Tv observation attachment
 			 * 
@@ -247,7 +248,7 @@ export const API = {
 			 * @param {string} Filename
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 */
-			"AddTvObservationAttachment": function(ObservationId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddTvObservationAttachment", "Attachments", service.Ams, {"ObservationId": {name: "ObservationId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([ObservationId, AttachmentType, Comments, Filename, IgnoreFileError]);},
+			"AddTvObservationAttachment": function(ObservationId: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean){return Endpoints.getEndpointObject("AddTvObservationAttachment", "Attachments", service.Ams, {"ObservationId": {name: "ObservationId", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}}).run([ObservationId, AttachmentType, Comments, Filename, IgnoreFileError]) as Promise<Responses.AddTvObservationAttachmentResponse>;},
 			/**
 			 * Add a work order attachment
 			 * 
@@ -259,160 +260,160 @@ export const API = {
 			 * @param {boolean} IgnoreFileError - Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location
 			 * @param {number} TaskId
 			 */
-			"AddWorkOrderAttachment": function(WorkOrderId: string, WorkOrderSid: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean, TaskId?: number){return Endpoints.getEndpointObject("AddWorkOrderAttachment", "Attachments", service.Ams, {"WorkOrderId": {name: "WorkOrderId", type: "string", required: true, description: ""}, "WorkOrderSid": {name: "WorkOrderSid", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}, "TaskId": {name: "TaskId", type: "number", required: false, description: ""}}).run([WorkOrderId, WorkOrderSid, AttachmentType, Comments, Filename, IgnoreFileError, TaskId]);},
+			"AddWorkOrderAttachment": function(WorkOrderId: string, WorkOrderSid: number, AttachmentType?: number, Comments?: string, Filename?: string, IgnoreFileError?: boolean, TaskId?: number){return Endpoints.getEndpointObject("AddWorkOrderAttachment", "Attachments", service.Ams, {"WorkOrderId": {name: "WorkOrderId", type: "string", required: true, description: ""}, "WorkOrderSid": {name: "WorkOrderSid", type: "number", required: true, description: ""}, "AttachmentType": {name: "AttachmentType", type: "number", required: false, description: "Defaults to 0 (ATTACHMENT)"}, "Comments": {name: "Comments", type: "string", required: false, description: ""}, "Filename": {name: "Filename", type: "string", required: false, description: ""}, "IgnoreFileError": {name: "IgnoreFileError", type: "boolean", required: false, description: "Continue saving attachment even when there is an error with the file, i.e. file is null or error accessing save file location"}, "TaskId": {name: "TaskId", type: "number", required: false, description: ""}}).run([WorkOrderId, WorkOrderSid, AttachmentType, Comments, Filename, IgnoreFileError, TaskId]) as Promise<Responses.AddWorkOrderAttachmentResponse>;},
 			/**
 			 * Delete inspection attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteInspectionAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteInspectionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteInspectionAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteInspectionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteInspectionAttachmentsResponse>;},
 			/**
 			 * Delete manhole inspection attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteManholeInspAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteManholeInspAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteManholeInspAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteManholeInspAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteManholeInspAttachmentsResponse>;},
 			/**
 			 * Delete service request attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteRequestAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteRequestAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteRequestAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteRequestAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteRequestAttachmentsResponse>;},
 			/**
 			 * Delete requisition attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 * @param {number} StoreroomDomainId - Used for fetching appropriate Storeroom Group Permissions.  If not set, this value defaults to user's StoreDomainId.
 			 */
-			"DeleteRequisitionAttachments": function(AttachmentIds: [number], StoreroomDomainId?: number){return Endpoints.getEndpointObject("DeleteRequisitionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}, "StoreroomDomainId": {name: "StoreroomDomainId", type: "number", required: false, description: "Used for fetching appropriate Storeroom Group Permissions.  If not set, this value defaults to user's StoreDomainId."}}).run([AttachmentIds, StoreroomDomainId]);},
+			"DeleteRequisitionAttachments": function(AttachmentIds: [number], StoreroomDomainId?: number){return Endpoints.getEndpointObject("DeleteRequisitionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}, "StoreroomDomainId": {name: "StoreroomDomainId", type: "number", required: false, description: "Used for fetching appropriate Storeroom Group Permissions.  If not set, this value defaults to user's StoreDomainId."}}).run([AttachmentIds, StoreroomDomainId]) as Promise<Responses.DeleteRequisitionAttachmentsResponse>;},
 			/**
 			 * Delete tv inspection attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteTvInspectionAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteTvInspectionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteTvInspectionAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteTvInspectionAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteTvInspectionAttachmentsResponse>;},
 			/**
 			 * Delete tv observation attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteTvObservationAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteTvObservationAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteTvObservationAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteTvObservationAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteTvObservationAttachmentsResponse>;},
 			/**
 			 * Delete work order attachments
 			 * 
 			 * @param {[number]} AttachmentIds
 			 */
-			"DeleteWorkOrderAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteWorkOrderAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]);},
+			"DeleteWorkOrderAttachments": function(AttachmentIds: [number]){return Endpoints.getEndpointObject("DeleteWorkOrderAttachments", "Attachments", service.Ams, {"AttachmentIds": {name: "AttachmentIds", type: "[number]", required: true, description: ""}}).run([AttachmentIds]) as Promise<Responses.DeleteWorkOrderAttachmentsResponse>;},
 			/**
 			 * Download an inspection attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadInspectionAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadInspectionAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadInspectionAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadInspectionAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadInspectionAttachmentResponse>;},
 			/**
 			 * Download a manhole inspection attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadManholeInspAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadManholeInspAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadManholeInspAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadManholeInspAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadManholeInspAttachmentResponse>;},
 			/**
 			 * Download a service request attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadRequestAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadRequestAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadRequestAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadRequestAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadRequestAttachmentResponse>;},
 			/**
 			 * Download a tv inspection attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadTvInspectionAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadTvInspectionAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadTvInspectionAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadTvInspectionAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadTvInspectionAttachmentResponse>;},
 			/**
 			 * Download a tv observation attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadTvObservationAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadTvObservationAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadTvObservationAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadTvObservationAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadTvObservationAttachmentResponse>;},
 			/**
 			 * Download a work order attachment
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"DownloadWorkOrderAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadWorkOrderAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"DownloadWorkOrderAttachment": function(AttachmentId: number){return Endpoints.getEndpointObject("DownloadWorkOrderAttachment", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.DownloadWorkOrderAttachmentResponse>;},
 			/**
 			 * Get an inspection attachment by id
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"InspectionAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("InspectionAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"InspectionAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("InspectionAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.InspectionAttachmentByIdResponse>;},
 			/**
 			 * Get inspections attachments
 			 * 
 			 * @param {[number]} InspectionIds
 			 */
-			"InspectionAttachments": function(InspectionIds: [number]){return Endpoints.getEndpointObject("InspectionAttachments", "Attachments", service.Ams, {"InspectionIds": {name: "InspectionIds", type: "[number]", required: true, description: ""}}).run([InspectionIds]);},
+			"InspectionAttachments": function(InspectionIds: [number]){return Endpoints.getEndpointObject("InspectionAttachments", "Attachments", service.Ams, {"InspectionIds": {name: "InspectionIds", type: "[number]", required: true, description: ""}}).run([InspectionIds]) as Promise<Responses.InspectionAttachmentsResponse>;},
 			/**
 			 * Get inspections attachments by id
 			 * 
 			 * @param {number} InspectionId
 			 * @param {number} InspQuestionId
 			 */
-			"InspectionAttachmentsById": function(InspectionId: number, InspQuestionId?: number){return Endpoints.getEndpointObject("InspectionAttachmentsById", "Attachments", service.Ams, {"InspectionId": {name: "InspectionId", type: "number", required: true, description: ""}, "InspQuestionId": {name: "InspQuestionId", type: "number", required: false, description: ""}}).run([InspectionId, InspQuestionId]);},
+			"InspectionAttachmentsById": function(InspectionId: number, InspQuestionId?: number){return Endpoints.getEndpointObject("InspectionAttachmentsById", "Attachments", service.Ams, {"InspectionId": {name: "InspectionId", type: "number", required: true, description: ""}, "InspQuestionId": {name: "InspQuestionId", type: "number", required: false, description: ""}}).run([InspectionId, InspQuestionId]) as Promise<Responses.InspectionAttachmentsByIdResponse>;},
 			/**
 			 * Get a manhole inspection attachment by id
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"ManholeInspAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("ManholeInspAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"ManholeInspAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("ManholeInspAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.ManholeInspAttachmentByIdResponse>;},
 			/**
 			 * Get manhole inspections attachments
 			 * 
 			 * @param {[number]} ManholeInspectionIds
 			 */
-			"ManholeInspAttachments": function(ManholeInspectionIds: [number]){return Endpoints.getEndpointObject("ManholeInspAttachments", "Attachments", service.Ams, {"ManholeInspectionIds": {name: "ManholeInspectionIds", type: "[number]", required: true, description: ""}}).run([ManholeInspectionIds]);},
+			"ManholeInspAttachments": function(ManholeInspectionIds: [number]){return Endpoints.getEndpointObject("ManholeInspAttachments", "Attachments", service.Ams, {"ManholeInspectionIds": {name: "ManholeInspectionIds", type: "[number]", required: true, description: ""}}).run([ManholeInspectionIds]) as Promise<Responses.ManholeInspAttachmentsResponse>;},
 			/**
 			 * Get a service request attachment by id
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"RequestAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("RequestAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"RequestAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("RequestAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.RequestAttachmentByIdResponse>;},
 			/**
 			 * Get service request attachments
 			 * 
 			 * @param {[number]} RequestIds
 			 */
-			"RequestAttachments": function(RequestIds: [number]){return Endpoints.getEndpointObject("RequestAttachments", "Attachments", service.Ams, {"RequestIds": {name: "RequestIds", type: "[number]", required: true, description: ""}}).run([RequestIds]);},
+			"RequestAttachments": function(RequestIds: [number]){return Endpoints.getEndpointObject("RequestAttachments", "Attachments", service.Ams, {"RequestIds": {name: "RequestIds", type: "[number]", required: true, description: ""}}).run([RequestIds]) as Promise<Responses.RequestAttachmentsResponse>;},
 			/**
 			 * Get a tv inspection attachment by id
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"TvInspectionAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("TvInspectionAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"TvInspectionAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("TvInspectionAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.TvInspectionAttachmentByIdResponse>;},
 			/**
 			 * Get tv inspections attachments
 			 * 
 			 * @param {[number]} TvIds
 			 */
-			"TvInspectionAttachments": function(TvIds: [number]){return Endpoints.getEndpointObject("TvInspectionAttachments", "Attachments", service.Ams, {"TvIds": {name: "TvIds", type: "[number]", required: true, description: ""}}).run([TvIds]);},
+			"TvInspectionAttachments": function(TvIds: [number]){return Endpoints.getEndpointObject("TvInspectionAttachments", "Attachments", service.Ams, {"TvIds": {name: "TvIds", type: "[number]", required: true, description: ""}}).run([TvIds]) as Promise<Responses.TvInspectionAttachmentsResponse>;},
 			/**
 			 * Get a tv observation attachment by id
 			 * 
 			 * @param {number} AttachmentId
 			 */
-			"TvObservationAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("TvObservationAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]);},
+			"TvObservationAttachmentById": function(AttachmentId: number){return Endpoints.getEndpointObject("TvObservationAttachmentById", "Attachments", service.Ams, {"AttachmentId": {name: "AttachmentId", type: "number", required: true, description: ""}}).run([AttachmentId]) as Promise<Responses.TvObservationAttachmentByIdResponse>;},
 			/**
 			 * Get tv observations attachments
 			 * 
 			 * @param {[number]} ObservationIds
 			 */
-			"TvObservationAttachments": function(ObservationIds: [number]){return Endpoints.getEndpointObject("TvObservationAttachments", "Attachments", service.Ams, {"ObservationIds": {name: "ObservationIds", type: "[number]", required: true, description: ""}}).run([ObservationIds]);},
+			"TvObservationAttachments": function(ObservationIds: [number]){return Endpoints.getEndpointObject("TvObservationAttachments", "Attachments", service.Ams, {"ObservationIds": {name: "ObservationIds", type: "[number]", required: true, description: ""}}).run([ObservationIds]) as Promise<Responses.TvObservationAttachmentsResponse>;},
 			/**
 			 * Get work order attachments
 			 * 
 			 * @param {[string]} WorkOrderIds
 			 * @param {[number]} WorkOrderSids
 			 */
-			"WorkOrderAttachments": function(WorkOrderIds: [string], WorkOrderSids: [number]){return Endpoints.getEndpointObject("WorkOrderAttachments", "Attachments", service.Ams, {"WorkOrderIds": {name: "WorkOrderIds", type: "[string]", required: true, description: ""}, "WorkOrderSids": {name: "WorkOrderSids", type: "[number]", required: true, description: ""}}).run([WorkOrderIds, WorkOrderSids]);},
+			"WorkOrderAttachments": function(WorkOrderIds: [string], WorkOrderSids: [number]){return Endpoints.getEndpointObject("WorkOrderAttachments", "Attachments", service.Ams, {"WorkOrderIds": {name: "WorkOrderIds", type: "[string]", required: true, description: ""}, "WorkOrderSids": {name: "WorkOrderSids", type: "[number]", required: true, description: ""}}).run([WorkOrderIds, WorkOrderSids]) as Promise<Responses.WorkOrderAttachmentsResponse>;},
 		},
 	},
 	"General": {
@@ -421,7 +422,7 @@ export const API = {
 			 * Get the current api version
 			 * 
 			 */
-			"ApiVersion": function(){return Endpoints.getEndpointObject("ApiVersion", "Authentication", service.General, {}).run([]);},
+			"ApiVersion": function(){return Endpoints.getEndpointObject("ApiVersion", "Authentication", service.General, {}).run([]) as Promise<Responses.ApiVersionResponse>;},
 			/**
 			 * Authenticate a username and password
 			 * 
@@ -432,7 +433,7 @@ export const API = {
 			 * @param {number} OrgId
 			 * @param {number} StoreDomainId
 			 */
-			"Authenticate": function(LoginName: string, Password: string, DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("Authenticate", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([LoginName, Password, DomainId, Expires, OrgId, StoreDomainId]);},
+			"Authenticate": function(LoginName: string, Password: string, DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("Authenticate", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([LoginName, Password, DomainId, Expires, OrgId, StoreDomainId]) as Promise<Responses.AuthenticateResponse>;},
 			/**
 			 * Authenticate a username with a GIS Token
 			 * 
@@ -444,7 +445,7 @@ export const API = {
 			 * @param {number} OrgId
 			 * @param {number} StoreDomainId
 			 */
-			"AuthenticateGisToken": function(GisToken: string, GisTokenUrl: string, LoginName: string, DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("AuthenticateGisToken", "Authentication", service.General, {"GisToken": {name: "GisToken", type: "string", required: true, description: "Gis access token"}, "GisTokenUrl": {name: "GisTokenUrl", type: "string", required: true, description: "Base url to GIS server (not the '/generateToken' endpoint)"}, "LoginName": {name: "LoginName", type: "string", required: true, description: "Gis user name, should match an employee login name"}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([GisToken, GisTokenUrl, LoginName, DomainId, Expires, OrgId, StoreDomainId]);},
+			"AuthenticateGisToken": function(GisToken: string, GisTokenUrl: string, LoginName: string, DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("AuthenticateGisToken", "Authentication", service.General, {"GisToken": {name: "GisToken", type: "string", required: true, description: "Gis access token"}, "GisTokenUrl": {name: "GisTokenUrl", type: "string", required: true, description: "Base url to GIS server (not the '/generateToken' endpoint)"}, "LoginName": {name: "LoginName", type: "string", required: true, description: "Gis user name, should match an employee login name"}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([GisToken, GisTokenUrl, LoginName, DomainId, Expires, OrgId, StoreDomainId]) as Promise<Responses.AuthenticateGisTokenResponse>;},
 			/**
 			 * Authenticate with a Mfa Token
 			 * 
@@ -452,7 +453,7 @@ export const API = {
 			 * @param {string} MfaToken - Mfa token
 			 * @param {number} Expires - Authenticate for a specified number of milliseconds, defaults to 12 hours
 			 */
-			"AuthenticateMfaToken": function(Code: string, MfaToken: string, Expires?: number){return Endpoints.getEndpointObject("AuthenticateMfaToken", "Authentication", service.General, {"Code": {name: "Code", type: "string", required: true, description: "Totp Code"}, "MfaToken": {name: "MfaToken", type: "string", required: true, description: "Mfa token"}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}}).run([Code, MfaToken, Expires]);},
+			"AuthenticateMfaToken": function(Code: string, MfaToken: string, Expires?: number){return Endpoints.getEndpointObject("AuthenticateMfaToken", "Authentication", service.General, {"Code": {name: "Code", type: "string", required: true, description: "Totp Code"}, "MfaToken": {name: "MfaToken", type: "string", required: true, description: "Mfa token"}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds, defaults to 12 hours"}}).run([Code, MfaToken, Expires]) as Promise<Responses.AuthenticateMfaTokenResponse>;},
 			/**
 			 * Authenticate a username with a Tid access token
 			 * 
@@ -463,26 +464,26 @@ export const API = {
 			 * @param {number} OrgId
 			 * @param {number} StoreDomainId
 			 */
-			"AuthenticateTidToken": function(AccessToken: string, Url: string, DomainId?: number, IdToken?: string, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("AuthenticateTidToken", "Authentication", service.General, {"AccessToken": {name: "AccessToken", type: "string", required: true, description: "Tid access_token"}, "Url": {name: "Url", type: "string", required: true, description: "Base url to Tid server"}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "IdToken": {name: "IdToken", type: "string", required: false, description: "Tid id_token (optional)"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([AccessToken, Url, DomainId, IdToken, OrgId, StoreDomainId]);},
+			"AuthenticateTidToken": function(AccessToken: string, Url: string, DomainId?: number, IdToken?: string, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("AuthenticateTidToken", "Authentication", service.General, {"AccessToken": {name: "AccessToken", type: "string", required: true, description: "Tid access_token"}, "Url": {name: "Url", type: "string", required: true, description: "Base url to Tid server"}, "DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "IdToken": {name: "IdToken", type: "string", required: false, description: "Tid id_token (optional)"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([AccessToken, Url, DomainId, IdToken, OrgId, StoreDomainId]) as Promise<Responses.AuthenticateTidTokenResponse>;},
 			/**
 			 * Authenticate a username and password
 			 * 
 			 * @param {string} LoginName
 			 * @param {string} Password
 			 */
-			"CityworksOnlineAuthenticate": function(LoginName: string, Password: string){return Endpoints.getEndpointObject("CityworksOnlineAuthenticate", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}}).run([LoginName, Password]);},
+			"CityworksOnlineAuthenticate": function(LoginName: string, Password: string){return Endpoints.getEndpointObject("CityworksOnlineAuthenticate", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}}).run([LoginName, Password]) as Promise<Responses.CityworksOnlineAuthenticateResponse>;},
 			/**
 			 * Get a list of sites for this user
 			 * 
 			 * @param {string} LoginName
 			 * @param {string} Password
 			 */
-			"CityworksOnlineSites": function(LoginName: string, Password: string){return Endpoints.getEndpointObject("CityworksOnlineSites", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}}).run([LoginName, Password]);},
+			"CityworksOnlineSites": function(LoginName: string, Password: string){return Endpoints.getEndpointObject("CityworksOnlineSites", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: true, description: ""}, "Password": {name: "Password", type: "string", required: true, description: ""}}).run([LoginName, Password]) as Promise<Responses.CityworksOnlineSitesResponse>;},
 			/**
 			 * Get a list of domains
 			 * 
 			 */
-			"Domains": function(){return Endpoints.getEndpointObject("Domains", "Authentication", service.General, {}).run([]);},
+			"Domains": function(){return Endpoints.getEndpointObject("Domains", "Authentication", service.General, {}).run([]) as Promise<Responses.DomainsResponse>;},
 			/**
 			 * Get token for DomainId, StoreDomainId and/or OrgId
 			 * 
@@ -491,30 +492,30 @@ export const API = {
 			 * @param {number} OrgId
 			 * @param {number} StoreDomainId
 			 */
-			"GetToken": function(DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("GetToken", "Authentication", service.General, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([DomainId, Expires, OrgId, StoreDomainId]);},
+			"GetToken": function(DomainId?: number, Expires?: number, OrgId?: number, StoreDomainId?: number){return Endpoints.getEndpointObject("GetToken", "Authentication", service.General, {"DomainId": {name: "DomainId", type: "number", required: false, description: ""}, "Expires": {name: "Expires", type: "number", required: false, description: "Authenticate for a specified number of milliseconds"}, "OrgId": {name: "OrgId", type: "number", required: false, description: ""}, "StoreDomainId": {name: "StoreDomainId", type: "number", required: false, description: ""}}).run([DomainId, Expires, OrgId, StoreDomainId]) as Promise<Responses.GetTokenResponse>;},
 			/**
 			 * Get the CWGroups for the given domain.
 			 * 
 			 * @param {number} DomainId - Defaults to current user domainId
 			 */
-			"Groups": function(DomainId?: number){return Endpoints.getEndpointObject("Groups", "Authentication", service.General, {"DomainId": {name: "DomainId", type: "number", required: false, description: "Defaults to current user domainId"}}).run([DomainId]);},
+			"Groups": function(DomainId?: number){return Endpoints.getEndpointObject("Groups", "Authentication", service.General, {"DomainId": {name: "DomainId", type: "number", required: false, description: "Defaults to current user domainId"}}).run([DomainId]) as Promise<Responses.GroupsResponse>;},
 			/**
 			 * Get user information by login name
 			 * 
 			 * @param {string} LoginName
 			 */
-			"User": function(LoginName?: string){return Endpoints.getEndpointObject("User", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: false, description: ""}}).run([LoginName]);},
+			"User": function(LoginName?: string){return Endpoints.getEndpointObject("User", "Authentication", service.General, {"LoginName": {name: "LoginName", type: "string", required: false, description: ""}}).run([LoginName]) as Promise<Responses.UserResponse>;},
 			/**
 			 * Validate an authentication token
 			 * 
 			 * @param {string} Token
 			 */
-			"Validate": function(Token: string){return Endpoints.getEndpointObject("Validate", "Authentication", service.General, {"Token": {name: "Token", type: "string", required: true, description: ""}}).run([Token]);},
+			"Validate": function(Token: string){return Endpoints.getEndpointObject("Validate", "Authentication", service.General, {"Token": {name: "Token", type: "string", required: true, description: ""}}).run([Token]) as Promise<Responses.ValidateResponse>;},
 			/**
 			 * Get the current software version
 			 * 
 			 */
-			"Version": function(){return Endpoints.getEndpointObject("Version", "Authentication", service.General, {}).run([]);},
+			"Version": function(){return Endpoints.getEndpointObject("Version", "Authentication", service.General, {}).run([]) as Promise<Responses.VersionResponse>;},
 		},
 	},
 }
